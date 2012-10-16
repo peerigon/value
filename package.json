@@ -1,0 +1,30 @@
+{
+    "name": "value",
+    "description": "Convenient type-checking for node.js",
+    "version": "0.1.0",
+    "homepage": "http://github.com/jhnns/value",
+    "repository": "git://github.com/jhnns/value.git",
+    "author": "Johannes Ewald <mail@johannesewald.de>",
+    "main": "./lib/value.js",
+    "keywords": [
+        "type",
+        "check",
+        "type-check",
+        "instance",
+        "of",
+        "class",
+        "nodeclass",
+        "casting"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "expect.js": "0.x",
+        "mocha": "1.x"
+    },
+    "engines": {
+        "node": "0.x"
+    },
+    "scripts": {
+        "test": "node node_modules/mocha/bin/mocha -R spec"
+    }
+}
