@@ -40,8 +40,8 @@ value(document.createElement("a")).isA(HTMLAnchorElement); // = true
 value(2).isNotA(String); // = true
 
 // you can also check conveniently for null and undefined with one call
-value(undefined).exists(); // = false
-value(null).doesNotExist(); // = true
+value(undefined).isSet(); // = false
+value(null).isNotSet(); // = true
 ```
 
 <br />
@@ -49,22 +49,22 @@ value(null).doesNotExist(); // = true
 API
 --------
 
-### isA(constructor): Boolean <sup>*Aliases: isAn, isInstanceOf, isTypeOf*</sup>
+### isA(constructor): Boolean <sup>*Alias: isAn, isInstanceOf, isTypeOf*</sup>
 
 
 Tests if the subject is a child of the constructor. Respects the complete inheritance chain.
 
-### isNotA(constructor): Boolean <sup>*Aliases: isNotAn, isNotInstanceOf, isNotTypeOf*</sup>
+### isNotA(constructor): Boolean <sup>*Alias: isNotAn, isNotInstanceOf, isNotTypeOf*</sup>
 
 Negation of `isA()`
 
-### exists(): Boolean <sup>*Aliases: isSet*</sup>
+### isSet(): Boolean <sup>*Alias: exists*</sup>
 
 Returns true when the subject was either `null` or `undefined`
 
-### doesNotExist(): Boolean <sup>*Aliases: isNotSet*</sup>
+### isNotSet(): Boolean <sup>*Alias: doesNotExist*</sup>
 
-Negation of `exists()`
+Negation of `isSet()`
 
 ### getConstructor(): Function|null
 
@@ -102,7 +102,7 @@ value("hello").isAn(Object); // = true
 value(new String("hello")).isAn(Object); // = true 
 ```
 
-The primitive value `"hello"` is not an Object in JavaScript. But it actual acts like an Object because it is [casted to an Object](http://stackoverflow.com/a/2051893) internally when trying to access a property.
+The primitive value `"hello"` is not an Object in JavaScript. But actually it *acts* like an Object because it is [casted to an Object](http://stackoverflow.com/a/2051893) internally when trying to access a property.
 
 So: Everything that is not `null` and `undefined` is an Object. If you want to test whether the given value is a plain Object or not, just call `getConstructor()`:
 
