@@ -14,7 +14,7 @@ Installation
 
 `npm install value`
 
-If you're not using a CommonJS-system in the browser `value` is namespaced under `window.jhnns.value`.
+If you're not using a CommonJS-system in the browser value is namespaced under `window.jhnns.value`.
 
 <br />
 
@@ -31,14 +31,15 @@ var value = require("value");
 value(undefined).isAn(Object); // = false
 value(null).isAn(Object); // = false
 value({}).isAn(Object); // = true
-value("hello").isAn(Object); // = true
+value(2).isA(Number); // = true
+value("hello").isA(String); // = true
 value(/myRegExp/).isA(RegExp); // = true
 value(document.createElement("a")).isA(HTMLAnchorElement); // = true
 
 // value also provides a negation for better readability
 value(2).isNotA(String); // = true
 
-// no more two types of null-references
+// you can also check conveniently for null and undefined with one call
 value(undefined).exists(); // = false
 value(null).doesNotExist(); // = true
 ```
@@ -48,26 +49,24 @@ value(null).doesNotExist(); // = true
 API
 --------
 
-### value(subject): Tests
-
-### Tests#isA(constructor): Boolean <sup>*Aliases: isAn, isInstanceOf, isTypeOf*</sup>
+### isA(constructor): Boolean <sup>*Aliases: isAn, isInstanceOf, isTypeOf*</sup>
 
 
 Tests if the subject is a child of the constructor. Respects the complete inheritance chain.
 
-### Tests#isNotA(constructor): Boolean <sup>*Aliases: isNotAn, isNotInstanceOf, isNotTypeOf*</sup>
+### isNotA(constructor): Boolean <sup>*Aliases: isNotAn, isNotInstanceOf, isNotTypeOf*</sup>
 
 Negation of `isA()`
 
-### Tests#exists(): Boolean <sup>*Aliases: isSet*</sup>
+### exists(): Boolean <sup>*Aliases: isSet*</sup>
 
 Returns true when the subject was either `null` or `undefined`
 
-### Tests#doesNotExist(): Boolean <sup>*Aliases: isNotSet*</sup>
+### doesNotExist(): Boolean <sup>*Aliases: isNotSet*</sup>
 
 Negation of `exists()`
 
-### Tests#getConstructor(): Function
+### getConstructor(): Function|null
 
 Returns `subject.constructor` or `null` if the subject was `null` or `undefined`.
 
