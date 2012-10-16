@@ -1,4 +1,6 @@
 value
 =====
+**Convenient type-checking for JavaScript**
 
-Convenient type-checking for node.js
+value is designed to ease type-checking in JavaScript.
+
