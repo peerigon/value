@@ -107,8 +107,8 @@ The primitive value `"hello"` is not an Object in JavaScript. But actually it *a
 So: Everything that is not `null` and `undefined` is an Object. If you want to test whether the given value is a plain Object or not, just call `getConstructor()`:
 
 ```javascript
-value({}).getConstructor() === Object; // true
-value("hello").getConstructor() === Object; // false
+value({}).getConstructor() === Object; // = true
+value("hello").getConstructor() === Object; // = false
 ```
 
 Why not directly accessing the `constructor`-property? Well, in this case you won't have to write:
