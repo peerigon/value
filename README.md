@@ -28,20 +28,25 @@ var value = require("value");
 
 // value takes every possible type in JavaScript
 // and provides some methods to test for the type.
-value(undefined).isAn(Object); // = false
-value(null).isAn(Object); // = false
-value({}).isAn(Object); // = true
-value(2).isA(Number); // = true
-value("hello").isA(String); // = true
-value(/myRegExp/).isA(RegExp); // = true
-value(document.createElement("a")).isA(HTMLAnchorElement); // = true
+value(undefined).typeOf(Object); // = false
+value(null).typeOf(Object); // = false
+value({}).typeOf(Object); // = true
+value(2).typeOf(Number); // = true
+value("hello").typeOf(String); // = true
+value(/myRegExp/).typeOf(RegExp); // = true
+value(document.createElement("a")).typeOf(HTMLAnchorElement); // = true
 
 // value also provides a negation for better readability
-value(2).isNotA(String); // = true
+value(2).notTypeOf(String); // = true
 
 // you can also check conveniently for null and undefined with one call
 value(undefined).isSet(); // = false
 value(null).isNotSet(); // = true
+
+// value also supports convenient type-checking within collections
+value([1, 2, 3]).each.typeOf(Number); // = true
+value([1, "2", 3]).any.notTypeOf(Number); // = true
+value({ one: 1, two: 2, three: null }).any.isNotSet(); // = true
 ```
 
 <br />
@@ -49,24 +54,39 @@ value(null).isNotSet(); // = true
 API
 --------
 
-### isA(constructor): Boolean <sup>*Alias: isAn, isInstanceOf, isTypeOf*</sup>
+### typeOf(constructor): Boolean <sup>*Alias: instanceOf*</sup>
 
+Tests if the subject is a child of the constructor. Respects the complete inheritance chain. Keep in mind that everything that is neither null nor undefined is a child of Object (see below).
 
-Tests if the subject is a child of the constructor. Respects the complete inheritance chain.
+### notTypeOf(constructor): Boolean <sup>*Alias: notInstanceOf*</sup>
 
-### isNotA(constructor): Boolean <sup>*Alias: isNotAn, isNotInstanceOf, isNotTypeOf*</sup>
+Negation of `typeOf()`
 
-Negation of `isA()`
+### isSet(): Boolean
 
-### isSet(): Boolean <sup>*Alias: exists*</sup>
+Returns true when the subject is neither `null` nor `undefined`
 
-Returns true when the subject was either `null` or `undefined`
-
-### isNotSet(): Boolean <sup>*Alias: doesNotExist*</sup>
+### isNotSet(): Boolean
 
 Negation of `isSet()`
 
-### getConstructor(): Function|null
+### each.typeOf(constructor): Boolean <sup>*Alias: each.instanceOf*</sup>
+
+Invokes `value(item).typeOf(constructor)` on every item within the given collection. Returns true if every item returned true. A collection can be an array or an object.
+
+### each.isSet(): Boolean
+
+Invokes the value(item).isSet() on every item within the given collection. Returns true if every item returned true. A collection can be an array or an object.
+
+### any.notTypeOf(constructor): Boolean <sup>*Alias: any.notInstanceOf*</sup>
+
+Negation of `each.typeOf()`
+
+### any.isNotSet(): Boolean
+
+Negation of `each.isSet()`
+
+### getConstructor(): Function|null <sup>*Alias: getClass*</sup>
 
 Returns `subject.constructor` or `null` if the subject was `null` or `undefined`.
 
@@ -84,7 +104,7 @@ This is a collection of cases where value acts differently to the original `type
 In contrast to `typeof null === "object"`
 
 ```javascript
-value(null).isAn(Object); // = false
+value(null).typeOf(Object); // = false
 ```
 
 ### new String() is a String
@@ -92,14 +112,14 @@ value(null).isAn(Object); // = false
 In constrast to `typeof new String() === "object"`
 
 ```javascript
-value(new String()).isA(String); // = true 
+value(new String()).typeOf(String); // = true 
 ```
 
 ### All set values are objects
 
 ```javascript
-value("hello").isAn(Object); // = true 
-value(new String("hello")).isAn(Object); // = true 
+value("hello").typeOf(Object); // = true 
+value(new String("hello")).typeOf(Object); // = true 
 ```
 
 The primitive value `"hello"` is not an Object in JavaScript. But actually it *acts* like an Object because it is [casted to an Object](http://stackoverflow.com/a/2051893) internally when trying to access a property.
@@ -122,8 +142,8 @@ if (myVar && myVar.constructor === Object) { ... }
 In constrast to `typeof NaN === "number"` and `typeof Infinity === "number"`
 
 ```javascript
-value(NaN).isA(Number); // = false
-value(Infinity).isA(Number); // = false
+value(NaN).typeOf(Number); // = false
+value(Infinity).typeOf(Number); // = false
 ```
 
 While `NaN` and `Infinity` are numbers from a theoretical point of view it's a common mistake when trying to sanitize calculation parameters. value assumes that numbers are numeric - that's why `NaN` and `Infinity` are not numbers.
@@ -131,10 +151,10 @@ While `NaN` and `Infinity` are numbers from a theoretical point of view it's a c
 
 <br />
 
-Notes
+Please note
 --------
 
-### arguments is not an Array
+### arguments !== Array
 
-This stays the same: `value(arguments).isAn(Array)` will return false because `arguments` doesn't provide all methods of `Array`.
+This stays the same: `value(arguments).typeOf(Array)` will return false because `arguments` doesn't provide all methods of `Array`.
 
