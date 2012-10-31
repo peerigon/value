@@ -95,7 +95,7 @@ Returns `subject.constructor` or `null` if the subject was `null` or `undefined`
 Fixes
 --------
 
-value contains a set of opinionated presumptions to avoid common and annoying pitfalls. It has been designed to act like you would expect from a language like ActionScript with optional static types. The returned value is not always conform with the JavaScript type-specification.
+value contains a set of opinionated presumptions to avoid common and annoying pitfalls. It has been designed to act like you would expect from a language like ActionScript with optional static types. The returned result is not always conform with the JavaScript type-specification.
 
 This is a collection of cases where value acts differently to the original `typeof`-operator:
 
