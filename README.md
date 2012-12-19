@@ -30,6 +30,7 @@ var value = require("value");
 // and provides some methods to test for the type.
 value(undefined).typeOf(Object); // = false
 value(null).typeOf(Object); // = false
+value([]).typeOf(Array); // = true
 value({}).typeOf(Object); // = true
 value(2).typeOf(Number); // = true
 value("hello").typeOf(String); // = true
