@@ -87,7 +87,7 @@ Negation of `each.typeOf()`
 
 Negation of `each.isSet()`
 
-### getConstructor(): Function|null <sup>*Alias: getClass*</sup>
+### getConstructor(): Function|null
 
 Returns `subject.constructor` or `null` if the subject was `null` or `undefined`.
 
