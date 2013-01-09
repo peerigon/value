@@ -2,9 +2,9 @@
     "name": "value",
     "description": "Convenient type-checking in JavaScript",
     "version": "0.2.0",
-    "homepage": "http://github.com/jhnns/value",
-    "repository": "git://github.com/jhnns/value.git",
-    "author": "Johannes Ewald <mail@johannesewald.de>",
+    "homepage": "http://github.com/peerigon/value",
+    "repository": "git://github.com/peerigon/value.git",
+    "author": "peerigon <developers@peerigon.com>",
     "main": "./lib/value.js",
     "keywords": [
         "type",
