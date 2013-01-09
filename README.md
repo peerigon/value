@@ -123,7 +123,7 @@ value("hello").typeOf(Object); // = true
 value(new String("hello")).typeOf(Object); // = true 
 ```
 
-The primitive value `"hello"` is not an Object in JavaScript. But actually it *acts* like an Object because it is [casted to an Object](http://stackoverflow.com/a/2051893) internally when trying to access a property.
+The primitive value `"hello"` is not an Object in JavaScript. But it actually *acts* like an Object because it is [casted to an Object](http://stackoverflow.com/a/2051893) internally when trying to access a property.
 
 ### Infinity and NaN are not numbers
 
