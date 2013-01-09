@@ -146,3 +146,10 @@ Please note
 
 This stays the same: `value(arguments).typeOf(Array)` will return false because `arguments` doesn't provide all methods of `Array`.
 
+
+<br />
+
+License
+--------
+
+### MIT
