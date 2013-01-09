@@ -87,7 +87,7 @@ Negation of `each.typeOf()`
 
 Negation of `each.isSet()`
 
-### getConstructor(): Function|null <sup>*Alias: getClass*</sup>
+### getConstructor(): Function|null
 
 Returns `subject.constructor` or `null` if the subject was `null` or `undefined`.
 
@@ -124,19 +124,6 @@ value(new String("hello")).typeOf(Object); // = true
 ```
 
 The primitive value `"hello"` is not an Object in JavaScript. But actually it *acts* like an Object because it is [casted to an Object](http://stackoverflow.com/a/2051893) internally when trying to access a property.
-
-So: Everything that is not `null` and `undefined` is an Object. If you want to test whether the given value is a plain Object or not, just call `getConstructor()`:
-
-```javascript
-value({}).getConstructor() === Object; // = true
-value("hello").getConstructor() === Object; // = false
-```
-
-Why not directly accessing the `constructor`-property? Well, in this case you won't have to write:
-
-```javascript
-if (myVar && myVar.constructor === Object) { ... }
-```
 
 ### Infinity and NaN are not numbers
 
