@@ -118,6 +118,12 @@ describe("value", function () {
                 _expect(value(document.createElement("a")).instanceOf(HTMLAnchorElement)).to.be(true);
             }
         });
+        it("should detect undefined", function () {
+            value(undefined).typeOf(undefined);
+        });
+        it("should detect null", function () {
+            value(null).typeOf(null);
+        });
         it("should avoid casting", function () {
             _expect(value("2").instanceOf(Number)).to.be(false);
             _expect(value(0).instanceOf(Boolean)).to.be(false);

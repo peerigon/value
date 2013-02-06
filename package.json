@@ -1,7 +1,7 @@
 {
     "name": "value",
     "description": "Convenient type-checking in JavaScript",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "homepage": "http://github.com/peerigon/value",
     "repository": "git://github.com/peerigon/value.git",
     "author": "peerigon <developers@peerigon.com>",
@@ -15,7 +15,6 @@
         "instanceof",
         "of",
         "class",
-        "nodeclass",
         "casting"
     ],
     "dependencies": {},
