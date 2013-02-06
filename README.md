@@ -5,6 +5,7 @@ value
 value is designed to ease [type-checking in JavaScript](http://bonsaiden.github.com/JavaScript-Garden/#types.typeof) while keeping performance in mind. It comes with a [fluent api](http://martinfowler.com/bliki/FluentInterface.html) to improve the readability of your code. Use value to sanitize function parameters and to provide better error messages if some type is unexpected. 
 
 [![Build Status](https://secure.travis-ci.org/jhnns/value.png?branch=master)](http://travis-ci.org/jhnns/value)
+[![Dependency Status](http://david-dm.org/peerigon/value/status.png)](http://david-dm.org/peerigon/value)
 
 
 <br />
