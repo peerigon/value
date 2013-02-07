@@ -31,19 +31,28 @@ var value = require("value");
 // and provides some methods to test for the type.
 value(undefined).typeOf(Object); // = false
 value(null).typeOf(Object); // = false
+
 value([]).typeOf(Array); // = true
-value({}).typeOf(Object); // = true
+value([]).typeOf(Object); // = false
+
 value(2).typeOf(Number); // = true
-value("hello").typeOf(String); // = true
+
+value(new String("hello")).typeOf(String); // = true
+value(new String("hello")).typeOf(Object); // = false
+
 value(/myRegExp/).typeOf(RegExp); // = true
+
 value(document.createElement("a")).typeOf(HTMLAnchorElement); // = true
+
 
 // value also provides a negation for better readability
 value(2).notTypeOf(String); // = true
 
+
 // you can also check conveniently for null and undefined with one call
 value(undefined).isSet(); // = false
 value(null).isNotSet(); // = true
+
 
 // value also supports convenient type-checking within collections
 value([1, 2, 3]).each.typeOf(Number); // = true
@@ -109,22 +118,23 @@ In contrast to `typeof null === "object"`
 value(null).typeOf(Object); // = false
 ```
 
-### new String() is a String
+### new String() is a String and not an Object
 
 In constrast to `typeof new String() === "object"`
 
 ```javascript
 value(new String()).typeOf(String); // = true 
+value(new String()).typeOf(Object); // = false 
 ```
 
-### All set values are objects
+### [] is an Array and not an Object
+
+In constrast to `typeof [] === "object"`
 
 ```javascript
-value("hello").typeOf(Object); // = true 
-value(new String("hello")).typeOf(Object); // = true 
+value([]).typeOf(Object); // = false
+value([]).typeOf(Array); // = true
 ```
-
-The primitive value `"hello"` is not an Object in JavaScript. But it actually *acts* like an Object because it is [casted to an Object](http://stackoverflow.com/a/2051893) internally when trying to access a property.
 
 ### Infinity and NaN are not numbers
 

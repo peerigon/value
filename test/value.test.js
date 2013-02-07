@@ -13,7 +13,7 @@ if (typeof require === "function") {
 }
 
 describe("value", function () {
-    describe("#getConstructor", function () {
+    describe(".getConstructor()", function () {
         function A() {}
 
         function B() {}
@@ -44,7 +44,7 @@ describe("value", function () {
             _expect(value(null).getConstructor()).to.be(null);
         });
     });
-    describe("#isSet", function () {
+    describe(".isSet()", function () {
         it("should return true when the value is neither null nor undefined", function () {
             _expect(value(false).isSet()).to.be(true);
             _expect(value(2).isSet()).to.be(true);
@@ -70,33 +70,19 @@ describe("value", function () {
             _expect(value(undefined).isSet()).to.be(false);
         });
     });
-    describe("#isNotSet", function () {
+    describe(".isNotSet()", function () {
         // We're assuming that the negation works when this test runs
         it("should return true when the value is null", function () {
             _expect(value(null).isNotSet()).to.be(true);
         });
     });
-    describe("#instanceOf", function () {
+    describe(".instanceOf()/.typeOf()", function () {
         function A() {}
 
         function B() {}
 
         function C() {}
         C.prototype = A.prototype;
-
-        function D() {}
-        D.Extends = A;
-
-        // Here we've got an inconsitent inheritance: E has an "Extends"-property
-        // which points to A AND has B.prototype as its prototype.
-        //
-        // In this case the prototype should take precedence over Extends.
-        // Actually it's not possible the other way round, because checking for
-        // e.constructor to get the Extends-prototype does not return E. Instead
-        // of it returns the prototype of E, which is B.prototype
-        function E() {}
-        E.Extends = A;
-        E.prototype = B.prototype;
 
         // Inheriting from a native function
         function MyNativeExtension() {}
@@ -118,6 +104,19 @@ describe("value", function () {
                 _expect(value(document.createElement("a")).instanceOf(HTMLAnchorElement)).to.be(true);
             }
         });
+        it("should not treat built-in values as Object (except Object itself)", function () {
+            var builtInValues = [true, 2, "2", [1, 2, 3],
+                    new Date(), /hello/gi, new Error()];
+
+            builtInValues.forEach(function (builtIn, index) {
+                 _expect(value(builtIn).instanceOf(Object)).to.be(false);
+            });
+        });
+        it("should not treat strings, numbers or booleans created with the new operator as Object", function () {
+            _expect(value(new String("hello")).typeOf(Object)).to.be(false);
+            _expect(value(new Number(2)).typeOf(Object)).to.be(false);
+            _expect(value(new Boolean(true)).typeOf(Object)).to.be(false);
+        });
         it("should detect undefined", function () {
             value(undefined).typeOf(undefined);
         });
@@ -128,13 +127,6 @@ describe("value", function () {
             _expect(value("2").instanceOf(Number)).to.be(false);
             _expect(value(0).instanceOf(Boolean)).to.be(false);
             _expect(value([1, 2, 3]).instanceOf(String)).to.be(false);
-        });
-        it("should treat all set values as objects", function () {
-            _expect(value(true).instanceOf(Object)).to.be(true);
-            _expect(value(2).instanceOf(Object)).to.be(true);
-            _expect(value("2").instanceOf(Object)).to.be(true);
-            _expect(value("").instanceOf(Object)).to.be(true);
-            _expect(value([1, 2, 3]).instanceOf(Object)).to.be(true);
         });
         it("should treat null and undefined as non-objects", function () {
             _expect(value(null).instanceOf(Object)).to.be(false);
@@ -167,12 +159,6 @@ describe("value", function () {
                 valueC = value(c);
 
             _expect(valueC.instanceOf(B)).to.be(false);
-        });
-        it("should return false when the object exposes an unfitting Extends property", function () {
-            var d = new D(),
-                valueD = value(d);
-
-            _expect(valueD.instanceOf(B)).to.be(false);
         });
         it("should return false when you check an undefined or null value", function () {
             _expect(value(null).instanceOf(B)).to.be(false);
@@ -215,7 +201,7 @@ describe("value", function () {
                 }).to.throwException();
         });
     });
-    describe("#notInstanceOf", function () {
+    describe(".notInstanceOf()/.notTypeOf()", function () {
         it("should be aliased with 'notTypeOf'", function () {
             var valueObj = value(null);
 
@@ -226,7 +212,7 @@ describe("value", function () {
             _expect(value("2").notInstanceOf(String)).to.be(false);
         });
     });
-    describe("#each", function () {
+    describe(".each", function () {
         var homoArr = [1, 2, 3],
             heteroArr = [1, "2", 3],
             heteroNullArr = [1, 2, null],
@@ -234,7 +220,7 @@ describe("value", function () {
             heteroObj = { one: 1, two: "2", three: 3 },
             heteroNullObj = { one: 1, two: 2, three: null };
 
-        describe("#isSet", function () {
+        describe(".isSet()", function () {
             it("should return true when every value(item).isSet returned true", function () {
                 _expect(value(homoArr).each.isSet()).to.be(true);
                 _expect(value(homoObj).each.isSet()).to.be(true);
@@ -244,7 +230,7 @@ describe("value", function () {
                 _expect(value(heteroNullObj).each.isSet()).to.be(false);
             });
         });
-        describe("#instanceOf", function () {
+        describe(".instanceOf()/.typeOf()", function () {
             it("should be aliased with 'typeOf'", function () {
                 var valueObj = value(null);
 
@@ -258,7 +244,7 @@ describe("value", function () {
             });
         });
     });
-    describe("#any", function () {
+    describe(".any", function () {
         var homoArr = [1, 2, 3],
             heteroArr = [1, "2", 3],
             heteroNullArr = [1, 2, null],
@@ -266,7 +252,7 @@ describe("value", function () {
             heteroObj = { one: 1, two: "2", three: 3 },
             heteroNullObj = { one: 1, two: 2, three: null };
 
-        describe("#isNotSet", function () {
+        describe(".isNotSet()", function () {
             it("should return true when any value(item).isSet returned false", function () {
                 _expect(value(homoArr).any.isNotSet()).to.be(false);
                 _expect(value(homoObj).any.isNotSet()).to.be(false);
@@ -276,7 +262,7 @@ describe("value", function () {
                 _expect(value(heteroNullObj).any.isNotSet()).to.be(true);
             });
         });
-        describe("#notInstanceOf", function () {
+        describe(".notInstanceOf()/.typeOf()", function () {
             it("should be aliased with 'notTypeOf'", function () {
                 var valueObj = value(null);
 
