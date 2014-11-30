@@ -200,6 +200,13 @@ describe("value", function () {
                     somethingIs.instanceOf({one: 1, two: 2, three: 3});
                 }).to.throwException();
         });
+        it("should also accept case-insensitive string values as types (like typeof)", function () {
+            _expect(value(true).typeOf("boolean")).to.be(true);
+            _expect(value(2).typeOf("Number")).to.be(true);
+            _expect(value("").typeOf("String")).to.be(true);
+            _expect(value({}).typeOf("Object")).to.be(true);
+            _expect(value([]).typeOf("array")).to.be(true);
+        });
     });
     describe(".notInstanceOf()/.notTypeOf()", function () {
         it("should be aliased with 'notTypeOf'", function () {
