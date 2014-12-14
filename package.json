@@ -1,7 +1,7 @@
 {
   "name": "value",
   "description": "Convenient type-checking in JavaScript",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "homepage": "http://github.com/peerigon/value",
   "repository": "git://github.com/peerigon/value.git",
   "author": "peerigon <developers@peerigon.com>",
