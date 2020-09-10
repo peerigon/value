@@ -1,8 +1,12 @@
+> **⚠️ DEPRECATED ⚠️**
+>
+> This module has been deprecated. You should lock your version to `0.3.3`. It will be replaced by a different module.
+
 value
 =====
 **Convenient high-performance type-checking for JavaScript**
 
-value is designed to ease [type-checking in JavaScript](http://bonsaiden.github.com/JavaScript-Garden/#types.typeof) while keeping performance in mind. It comes with a [fluent api](http://martinfowler.com/bliki/FluentInterface.html) to improve the readability of your code. Use value to sanitize function parameters and to provide better error messages if some type is unexpected. 
+value is designed to ease [type-checking in JavaScript](http://bonsaiden.github.com/JavaScript-Garden/#types.typeof) while keeping performance in mind. It comes with a [fluent api](http://martinfowler.com/bliki/FluentInterface.html) to improve the readability of your code. Use value to sanitize function parameters and to provide better error messages if some type is unexpected.
 
 [![Build Status](https://secure.travis-ci.org/jhnns/value.png?branch=master)](http://travis-ci.org/jhnns/value)
 [![Dependency Status](http://david-dm.org/peerigon/value/status.png)](http://david-dm.org/peerigon/value)
@@ -13,7 +17,9 @@ value is designed to ease [type-checking in JavaScript](http://bonsaiden.github.
 Installation
 ------------
 
-`npm install value`
+`npm install value@0.3.3`
+
+**It's important to use this version number because newer versions will be an entire
 
 If you're not using a CommonJS-system in the browser value is namespaced under `window.jhnns.value`.
 
@@ -123,8 +129,8 @@ value(null).typeOf(Object); // = false
 In constrast to `typeof new String() === "object"`
 
 ```javascript
-value(new String()).typeOf(String); // = true 
-value(new String()).typeOf(Object); // = false 
+value(new String()).typeOf(String); // = true
+value(new String()).typeOf(Object); // = false
 ```
 
 ### [] is an Array and not an Object
